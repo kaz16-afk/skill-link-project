@@ -1,0 +1,48 @@
+# ---------------------------------------------------------
+# [Reference] DNS & SSL Configuration
+# ※コスト最適化のためドメインの取得はしていません。（設計のみ）
+# ---------------------------------------------------------
+
+locals {
+  # ★サービス名に合わせたドメイン名
+  domain_name = "skill-link.io"
+  sub_domain  = "www.skill-link.io"
+}
+
+# 1. Route53 Hosted Zone (ドメイン管理場所)
+resource "aws_route53_zone" "main" {
+  name = local.domain_name
+  
+  tags = {
+    project = "skill-link"
+  }
+}
+
+# 2. ACM Certificate (SSL証明書の発行)
+resource "aws_acm_certificate" "cert" {
+  provider          = aws.virginia
+  domain_name       = local.sub_domain
+  validation_method = "DNS"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  tags = {
+    project = "skill-link"
+  }
+}
+
+# 3. Route53 Alias Record (CloudFrontへの紐付け)
+# ドメインへのアクセスを、CloudFrontへ転送する設定
+resource "aws_route53_record" "cdn_alias" {
+  zone_id = aws_route53_zone.main.zone_id
+  name    = local.sub_domain
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.frontend_cdn.domain_name
+    zone_id                = aws_cloudfront_distribution.frontend_cdn.hosted_zone_id
+    evaluate_target_health = false
+  }
+}
