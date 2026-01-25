@@ -3,7 +3,7 @@
 プロジェクト「SKiLL-LiNK」のAWSインフラ構成コードです。
 Terraformを使用し、セキュアでスケーラブルなサーバーレスアーキテクチャを構築しています。
 
-## 📏 Naming Convention
+## Naming Convention
 サービス名は「SKiLL-LiNK」ですが、
 AWSリソースの命名規則として、一貫性とAWSの制約（S3バケット名の小文字制限など）を考慮し、全て小文字化しています。
 
