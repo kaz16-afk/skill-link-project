@@ -10,6 +10,10 @@ AWSリソースの命名規則として、一貫性とAWSの制約（S3バケッ
 * **Project Prefix**: `skill-link-`
 * **Resource Tags**: 全リソースに対して `project = "skill-link"` タグを付与し、コスト配分タグとしての利用やリソースグループ管理を容易にしています。
 
+## System Architecture Diagram
+
+＜構成図をここへ挿入＞
+
 ## Architecture Overview
 
 | Resource Type | Description | File |
