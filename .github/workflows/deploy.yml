@@ -1,7 +1,7 @@
 ﻿name: Skill-Link Production Deploy
 
 on:
-  workflow_dispatch:  # ★ここ重要！「push」から「workflow_dispatch(手動)」に変えることで、勝手に走らなくなります
+  workflow_dispatch:  # push →　手動適用へ変更
 
 jobs:
   deploy:
