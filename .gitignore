@@ -1,0 +1,16 @@
+# 依存ライブラリ（重いので除外）
+node_modules/
+__pycache__/
+venv/
+
+# 環境変数・認証情報（絶対に公開しない！）
+.env
+.aws/
+aws-exports.js
+
+# OSの自動生成ファイル
+.DS_Store
+Thumbs.db
+
+# ログファイルなど
+*.log

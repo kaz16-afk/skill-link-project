@@ -1,0 +1,68 @@
+name: Skill-Link Production Deploy
+
+on:
+  push:
+    branches: [ main ] # mainに保存されたら自動実行
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Node.jsのセットアップ（Reactのビルドに必要）
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/${{ vars.AWS_ROLE_NAME }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      # ---------------------------------------------------
+      # 1. バックエンド（Lambda）のデプロイ
+      # ---------------------------------------------------
+      - name: Zip Lambda function
+        run: |
+          cd backend
+          zip -r ../function.zip .
+
+      - name: Update Lambda Code
+        run: |
+          aws lambda update-function-code \
+            --function-name SkillLinkWebhookHandler \
+            --zip-file fileb://function.zip
+
+      # ---------------------------------------------------
+      # 2. フロントエンド（React -> S3/CloudFront）のデプロイ
+      # ---------------------------------------------------
+      - name: Build Frontend
+        # frontendフォルダに移動して依存関係インストール & ビルド
+        run: |
+          cd frontend
+          npm ci
+          npm run build
+
+      - name: Deploy Frontend to S3
+        # ビルド成果物（./frontend/dist）をS3に同期
+        run: |
+          if [ -d "./frontend/dist" ]; then
+            aws s3 sync ./frontend/dist s3://skill-link-frontend --delete
+          else
+            echo "Error: dist directory not found. Build failed."
+            exit 1
+          fi
+
+      - name: CloudFront Invalidation
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ vars.CLOUDFRONT_DIST_ID }} \
+            --paths "/*"
