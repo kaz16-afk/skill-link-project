@@ -35,7 +35,7 @@ SKiLL-LiNKは、SES企業内に眠る膨大なスキルシートをAI (AWS Bedro
 - **`/terraform`** 👈 **Core Infrastructure**
   - AWSインフラストラクチャの全構成コード。
   - セキュリティ（WAF, IAM）やAI基盤（Bedrock, Pinecone連携）の定義。
-  - 詳細は [terraform/README.md](./terraform/README.md) をご覧ください。
+  - 詳細は [terraform/README.md](https://github.com/kaz16-afk/skill-link-project/blob/main/terraform/README.md) をご覧ください。
 
 - **`/frontend`**
   - 管理画面およびLIFF (LINE Front-end Framework) アプリケーション。
@@ -49,3 +49,4 @@ SKiLL-LiNKは、SES企業内に眠る膨大なスキルシートをAI (AWS Bedro
 * **Automated Skill Parsing**: Excel/PDFのスキルシートをS3にアップロードするだけで、AIが自動解析しベクトル化。
 * **Secure Environment**: Cognitoによるドメイン制限により、社外からの不正アクセスを遮断。
 * **Cost Optimized**: 待機コストのかからないサーバーレス構成と、マルチリージョン活用によるコスト最適化。
+
