@@ -3,12 +3,16 @@
 プロジェクト「SKiLL-LiNK」のAWSインフラ構成コードです。
 Terraformを使用し、セキュアでスケーラブルなサーバーレスアーキテクチャを構築しています。
 
-## 📏 Naming Convention
+## Naming Convention
 サービス名は「SKiLL-LiNK」ですが、
 AWSリソースの命名規則として、一貫性とAWSの制約（S3バケット名の小文字制限など）を考慮し、全て小文字化しています。
 
 * **Project Prefix**: `skill-link-`
 * **Resource Tags**: 全リソースに対して `project = "skill-link"` タグを付与し、コスト配分タグとしての利用やリソースグループ管理を容易にしています。
+
+## System Architecture Diagram
+
+＜構成図をここへ挿入＞
 
 ## Architecture Overview
 
