@@ -14,3 +14,9 @@ Thumbs.db
 
 # ログファイルなど
 *.log
+
+# .gitignore
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
