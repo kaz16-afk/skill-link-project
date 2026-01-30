@@ -3,8 +3,9 @@
 # ---------------------------------------------------------
 resource "aws_bedrockagent_knowledge_base" "skill_link_kb" {
   provider = aws.virginia
-  name     = "skill-link-kb-pine-cone"
-  role_arn = "arn:aws:iam::<YOUR_ACCOUNT_ID>:role/SkillLinkManualKBExecutionRole"
+  name     = "${var.project_name}-kb-pine-cone"
+  
+  role_arn = "arn:aws:iam::${var.aws_account_id}:role/SkillLinkManualKBExecutionRole"
 
   knowledge_base_configuration {
     type = "VECTOR"
@@ -23,9 +24,8 @@ resource "aws_bedrockagent_knowledge_base" "skill_link_kb" {
   storage_configuration {
     type = "PINECONE"
     pinecone_configuration {
-      connection_string = "https://<YOUR_PINECONE_INDEX_URL>"
-      
-      credentials_secret_arn = "arn:aws:secretsmanager:us-east-1:<YOUR_ACCOUNT_ID>:secret:pinecone-api-key-xxxxxx"
+      connection_string = var.pinecone_index_url
+      credentials_secret_arn = var.pinecone_secret_arn
       
       field_mapping {
         metadata_field = "metadata"
@@ -35,6 +35,6 @@ resource "aws_bedrockagent_knowledge_base" "skill_link_kb" {
   }
 
   tags = {
-    project = "skill-link"
+    project = var.project_name
   }
 }

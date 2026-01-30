@@ -1,9 +1,10 @@
-# ---------------------------------------------------------
+# --------------------------------------------------------------------------------
 # Authentication (Cognito User Pool)
-# ---------------------------------------------------------
+# --------------------------------------------------------------------------------
 resource "aws_cognito_user_pool" "main_pool" {
   provider = aws.virginia
-  name     = "SkillLink-Userpool"
+
+  name = "${var.project_name}-userpool"
 
   username_attributes      = ["email"]
   auto_verified_attributes = ["email"]
@@ -60,15 +61,43 @@ resource "aws_cognito_user_pool" "main_pool" {
     email_sending_account = "COGNITO_DEFAULT"
   }
 
-  lambda_config {
-    pre_sign_up = "arn:aws:lambda:us-east-1:<YOUR_ACCOUNT_ID>:function:SkillLinkDomainGuard"
-  }
-
   verification_message_template {
     default_email_option = "CONFIRM_WITH_CODE"
   }
 
   tags = {
-    project = "skill-link"
+    project = var.project_name
+  }
+}
+
+# ================================================================================
+# ★追加: Reactアプリが接続するためのクライアント設定
+# ================================================================================
+resource "aws_cognito_user_pool_client" "client" {
+  provider = aws.virginia
+
+  name = "${var.project_name}-client"
+
+  user_pool_id = aws_cognito_user_pool.main_pool.id
+
+  # フロントエンド(React)からのアクセスには「クライアントシークレット」は不要(false)
+  generate_secret = false
+
+  # Reactアプリ(Amplify)が必要とする認証フローを許可
+  explicit_auth_flows = [
+    "ALLOW_USER_SRP_AUTH",       # セキュアなパスワード認証 (推奨)
+    "ALLOW_REFRESH_TOKEN_AUTH",  # ログイン維持
+    "ALLOW_USER_PASSWORD_AUTH"   # 通常のパスワード認証
+  ]
+
+  # トークンの有効期限設定（必要に応じて調整）
+  refresh_token_validity = 30
+  access_token_validity  = 1
+  id_token_validity      = 1
+
+  token_validity_units {
+    refresh_token = "days"
+    access_token  = "hours"
+    id_token      = "hours"
   }
 }

@@ -3,40 +3,75 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  width: 100%;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+/* ▼▼▼ ロゴのスタイル追加 ▼▼▼ */
+.app-logo {
+  max-width: 150px; /* ロゴの最大幅（お好みで調整してください） */
+  height: auto;
+  display: block;
+  margin: 0 auto 20px auto; /* 上下左右中央寄せ、下に余白 */
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* ▲▲▲ ロゴのスタイル追加 ▲▲▲ */
+
+/* 白いカードデザイン */
+.login-card {
+  background-color: rgba(255, 255, 255, 0.95); /* 少しだけ透けさせて背景となじませる */
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* 影をリッチに */
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: left;
+  backdrop-filter: blur(10px); /* すりガラス効果（対応ブラウザのみ） */
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.login-card h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 24px;
+  font-size: 1.3rem; /* 少し控えめに */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.login-card label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #555;
+  display: block;
+  margin-bottom: 4px;
 }
 
-.card {
-  padding: 2em;
+.login-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 16px;
+  background-color: #fafafa;
+  transition: all 0.2s;
 }
 
-.read-the-docs {
-  color: #888;
+.login-card input:focus {
+  outline: none;
+  border-color: #06C755;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(6, 199, 85, 0.2); 
+}
+
+.login-card button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.error-msg {
+  color: #e74c3c;
+  background-color: #fdecea;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  text-align: center;
 }

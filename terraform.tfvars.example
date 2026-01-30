@@ -1,0 +1,25 @@
+# ==============================================================================
+# 1. LINE Messaging API 設定
+# ==============================================================================
+# LINE Developersコンソール > Messaging API設定 > チャネルアクセストークン(長期)
+# から取得した文字列を貼り付けてください。
+line_channel_token  = "YOUR_LINE_CHANNEL_ACCESS_TOKEN"
+
+# ==============================================================================
+# 2. Pinecone (ベクトルDB) 設定
+# ==============================================================================
+# Pineconeコンソールで作成したIndexの「Host (URL)」を貼り付けてください。
+# 例: https://skill-link-index-xxxxxxx.svc.us-east-1-aws.pinecone.io
+pinecone_index_url  = "YOUR_PINECONE_INDEX_URL"
+
+# AWS Secrets Managerに保存した「Pinecone API Key」のARNを貼り付けてください。
+# ※AWSコンソール(us-east-1) > Secrets Manager > 作成したシークレットの詳細画面で確認できます。
+# 例: arn:aws:secretsmanager:us-east-1:123456789012:secret:pinecone-api-key-xxxxx
+pinecone_secret_arn = "YOUR_SECRET_ARN"
+
+# ==============================================================================
+# 3. AWS Account ID
+# ==============================================================================
+# 自分のAWSアカウントID (数字12桁) を入力してください
+# 例: "123456789012"
+aws_account_id = "ここに数字12桁を入れる"

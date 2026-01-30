@@ -1,11 +1,12 @@
-# ---------------------------------------------------------
-# WAF Configuration
-# ※コスト最適化のため現在は未適用（設計のみ）
-# ---------------------------------------------------------
+# --------------------------------------------------------------------------------
+# WAF Configuration (Reference Only)
+# ※コスト最適化のため、本環境では適用していません。（設計リファレンスとして保存）
+# --------------------------------------------------------------------------------
 
-# 1. Web ACL (Regional)
+/*
+# 1. Web ACL (Regional for API Gateway)
 resource "aws_wafv2_web_acl" "api_waf" {
-  name        = "skill-link-api-waf"
+  name        = "${var.project_name}-api-waf"
   description = "Basic WAF for API Gateway"
   scope       = "REGIONAL"
 
@@ -15,11 +16,11 @@ resource "aws_wafv2_web_acl" "api_waf" {
 
   visibility_config {
     cloudwatch_metrics_enabled = true
-    metric_name                = "skill-link-api-waf"
+    metric_name                = "${var.project_name}-api-waf"
     sampled_requests_enabled   = true
   }
 
-  # 基本ルールセット (AWS Managed Rules Common Rule Set)
+  # AWS Managed Rules Common Rule Set
   rule {
     name     = "AWS-AWSManagedRulesCommonRuleSet"
     priority = 10
@@ -43,14 +44,13 @@ resource "aws_wafv2_web_acl" "api_waf" {
   }
 
   tags = {
-    project = "skill-link"
+    project = var.project_name
   }
 }
 
-# 2. WAF Association
-# WAFをAPI Gatewayのステージに関連付け
+# 2. Association (API Gatewayへの紐付け)
 resource "aws_wafv2_web_acl_association" "main" {
-  # compute.tf で定義するステージを参照
   resource_arn = aws_apigatewayv2_stage.default.arn
   web_acl_arn  = aws_wafv2_web_acl.api_waf.arn
 }
+*/

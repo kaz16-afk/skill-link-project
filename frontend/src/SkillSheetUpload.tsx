@@ -2,7 +2,8 @@ import React, { useState, useRef } from 'react';
 import type { ChangeEvent, DragEvent } from 'react';
 
 // Lambda URL
-const LAMBDA_URL = "<ENTER_YOUR_LAMBDA_URL>";
+// 環境変数から読み込む (Viteの作法)
+const LAMBDA_URL = import.meta.env.VITE_API_URL + "/upload";
 
 const SkillSheetUpload = () => {
   // 複数ファイルを管理

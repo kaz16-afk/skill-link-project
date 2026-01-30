@@ -1,22 +1,22 @@
-# 依存ライブラリ（重いので除外）
-node_modules/
+# Terraform State
+*.tfstate
+*.tfstate.*
+
+# 変数定義ファイル (IDやキーなどの機密情報が含まれるため除外)
+terraform.tfvars
+*.auto.tfvars
+
+# Terraform設定ディレクトリ
+.terraform/
+.terraform.lock.hcl
+
+# Pythonのキャッシュ
 __pycache__/
-venv/
+*.pyc
 
-# 環境変数・認証情報（絶対に公開しない！）
-.env
-.aws/
-aws-exports.js
+# Lambda用に生成されたZIPファイル
+*.zip
 
-# OSの自動生成ファイル
+# OSのサムネイルファイルなど
 .DS_Store
 Thumbs.db
-
-# ログファイルなど
-*.log
-
-# .gitignore
-.terraform/
-*.tfstate
-*.tfstate.backup
-*.tfvars
