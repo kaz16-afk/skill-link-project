@@ -2,8 +2,9 @@ import React, { useState, useRef } from 'react';
 import type { ChangeEvent, DragEvent } from 'react';
 
 // Lambda URL
-// 環境変数から読み込む (Viteの作法)
 const LAMBDA_URL = import.meta.env.VITE_API_URL + "/upload";
+// APIキーの読み込み
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const SkillSheetUpload = () => {
   // 複数ファイルを管理
@@ -79,13 +80,21 @@ const SkillSheetUpload = () => {
     try {
       // 全ファイルを並列処理 (Promise.all)
       const uploadPromises = files.map(async (file) => {
-        // 1. 署名付きURL取得
-        const queryParams = new URLSearchParams({
-          fileName: file.name,
-          fileType: file.type 
+        
+        // 1. 署名付きURL取得 (POSTメソッドに変更 & ヘッダー付与)
+        const presignRes = await fetch(LAMBDA_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-skill-link-auth': API_KEY // 合言葉ヘッダー
+            },
+            body: JSON.stringify({
+                filename: file.name,
+                filetype: file.type
+            })
         });
-        const presignRes = await fetch(`${LAMBDA_URL}?${queryParams.toString()}`);
-        if (!presignRes.ok) throw new Error(`${file.name}: URL発行エラー`);
+
+        if (!presignRes.ok) throw new Error(`${file.name}: URL発行エラー (Auth?)`);
         const { uploadUrl } = await presignRes.json();
 
         // 2. S3アップロード
