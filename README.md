@@ -4,10 +4,10 @@
 営業担当者がLINEで「Java経験3年以上のエンジニアを探して」と送るだけで、
 S3上のExcelスキルシートから条件に合う候補者を検索し、**要約 + スキルシートのダウンロードリンク**を自動返信します。
 
-![Architecture Diagram](./docs/architecture.png)
-*(ここに構成図の画像を配置してください)*
+## 構成図
+<img width="1843" height="1158" alt="v1 3_skill-link-archtecture" src="https://github.com/user-attachments/assets/2173c989-8c2a-421f-8282-f8b2c688049b" />
 
-## 📖 開発背景・詳細解説 (Zenn)
+## 開発背景・詳細解説 (Zenn)
 本プロダクトの開発経緯、アーキテクチャ選定の裏側、開発中の技術的な課題（SQSによる流量制御、RAGの精度調整など）については、Zennの記事で詳しく解説しています。
 
 👉 **[SES営業の『このエンジニアいないかな？』を爆速で解決。AWS RAG × LINE で叶えるエンジニア検索ボット「SKiLL-LiNK」](https://zenn.dev/study_scraps/articles/c43f2f8ceb1fef)**
@@ -22,7 +22,7 @@ S3上のExcelスキルシートから条件に合う候補者を検索し、**�
 
 ---
 
-## 🛠 技術スタック
+## 技術スタック
 - **Frontend:** React (Vite), LINE Bot
 - **Backend:** AWS Lambda (Python 3.11)
 - **AI/RAG:** AWS Bedrock, Amazon Titan (Embeddings), Knowledge Base, Pinecone
@@ -70,6 +70,11 @@ terraform apply
 完了後、ターミナルに以下が出力されます：
 - `api_gateway_url`: Webhook等のエンドポイント
 - `cloudfront_url`: 管理画面（Web）のURL
+
+※ もし値を見逃した場合は、以下のコマンドで再表示できます:
+```bash
+terraform output
+```
 
 ### 5. LINE Bot設定
 出力された `api_gateway_url` + `/callback` (例: `https://xxxx.execute-api.us-east-1.amazonaws.com/callback`) を、LINE Developersコンソールの **Webhook URL** に設定してください。
