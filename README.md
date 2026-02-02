@@ -5,7 +5,8 @@
 S3上のExcelスキルシートから条件に合う候補者を検索し、**要約 + スキルシートのダウンロードリンク**を自動返信します。
 
 ## 構成図
-<img width="1843" height="1158" alt="v1 3_skill-link-archtecture" src="https://github.com/user-attachments/assets/2173c989-8c2a-421f-8282-f8b2c688049b" />
+![v2 0_skill-link-archtecture](https://github.com/user-attachments/assets/43a1d2b5-7499-43ba-affa-acb3285d2a0c)
+
 
 ## 開発背景・詳細解説 (Zenn)
 本プロダクトの開発経緯、アーキテクチャ選定の裏側、開発中の技術的な課題（SQSによる流量制御、RAGの精度調整など）については、Zennの記事で詳しく解説しています。
